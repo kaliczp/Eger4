@@ -15,4 +15,13 @@ for(ttfile in txtfiles[-1]) {
 Sys.setenv(TZ="UTC")
 eger4ido <- as.POSIXct(gsub("\\.", "-", eger4p[,1]))
 
-plot(eger4ido, eger4p[,2], type = "l")
+## xts csomag használata
+library(xts)
+eger4p.xts  <- xts(eger4p[,2], eger4ido)
+plot(eger4p.xts)
+
+## napi idősor ábrázolása
+eger4p.napi.xts <- round(apply.daily(eger4p.xts, mean), 3)
+plot(eger4p.napi.xts)
+write.zoo(eger4p.napi.xts, "eger4pnapi.csv", dec = ",", sep = ";", row.names = FALSE)
+
