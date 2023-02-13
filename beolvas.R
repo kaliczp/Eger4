@@ -11,4 +11,8 @@ for(ttfile in txtfiles[-1]) {
     eger4p <- rbind(eger4p, smartbe(paste0("konvertalt_2022/", ttfile), channel = 3))
 }
 
-plot(eger4p[,2], type = "l")
+## Idővé alakítás
+Sys.setenv(TZ="UTC")
+eger4ido <- as.POSIXct(gsub("\\.", "-", eger4p[,1]))
+
+plot(eger4ido, eger4p[,2], type = "l")
